@@ -78,7 +78,7 @@
 	function make_array($size){
 		$numlist = array();
 		for ($x = 0; $x < $size; $x++){
-			$numlist[] = rand(0,10);
+			$numlist[] = rand(0,10000);
 		}
 		return $numlist;
 	}
