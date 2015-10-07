@@ -9,6 +9,7 @@
 	set_time_limit(60);
 	$time_start = microtime(true);
 	$list = make_array(10000);
+	$operations = 0;
 	//var_dump($list);
 	//how many times to carry out a complete traverse...
 	for ($i = 0; $i < count($list)/2; $i++){
@@ -23,11 +24,13 @@
 		for ($j = $i; $j < count($list)-$i; $j++){
 
 			if ($list[$j] < $min){
+				$operations++;
 				$min = $list[$j];
 				$hitMin = $j;
 				$counterMin++;
 			}
 			if ($list[$j] > $max){
+				$operations++;
 				$max = $list[$j];
 				$hitMax = $j;
 				$counterMax++;
@@ -38,13 +41,16 @@
 		//updating the position of the max value before the min takes its spot!
 		if ($counterMin > 0){
 			// echo "<=====Min moving to the first position!!!<br>";
+			$operations++;
 			if ($hitMax == $i){
 				// echo "Max found at the beginning of the list, updating its index<br>";
+				$operations++;
 				$hitMax = $hitMin;
 				$mover = $list[$i];
 				$list[$i] = $list[$hitMin];
 				$list[$hitMin] = $mover;
 			}else{
+				$operations++;
 				$mover = $list[$i];
 				$list[$i] = $list[$hitMin];
 				$list[$hitMin] = $mover;
@@ -55,6 +61,7 @@
 		//no need to worry about the minimum being in the end of the loop.  It would have already
 		//moved to the beginning!
 		if ($counterMax > 0){
+			$operations++;
 			// echo "Max moving to the last position!!!=====><br>";
 			$mover = $list[(count($list)-1)-$i];
 			$list[(count($list)-1)-$i] = $list[$hitMax];
@@ -78,7 +85,7 @@
 
 	$time_end = microtime(true);
 	$time = $time_end - $time_start;
-	echo "Elapsed Time: " . $time;
+	echo "Elapsed Time: " . $time . " Number of if/else operations: " . $operations;
 ?>
 		</h1>
 	</body>
